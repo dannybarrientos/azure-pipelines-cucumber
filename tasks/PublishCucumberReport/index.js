@@ -1,8 +1,5 @@
 const tl = require('azure-pipelines-task-lib')
 const { join } = require('path')
-const { ensureDirSync, copySync } = require('fs-extra')
-
-const path = "/tmp/reporter"
 
 function getDefaultExecOptions() {
   let execOptions = {}
@@ -35,17 +32,18 @@ try {
     "RAW_METADATA": tl.getInput('metadata', false),
     "THEME": tl.getInput('theme', true),
     "REPORT_TITLE": tl.getInput('title', false),
-    "REPORT_NAME": tl.getInput('name', false)
+    "REPORT_NAME": tl.getInput('name', false),
+    "JUNIT": tl.getBoolInput('generateJunit', false)
   }
   const nodeProcess = nodeTool.execSync(runOpts)
 
   if(nodeProcess.code !== 0) {
     tl.debug(nodeProcess)
-    throw new Error('Unable to run script')
+    throw new Error('Error during script execution')
   }
 
   tl.addAttachment('cucumber.report', 'cucumber_report.html', outputPath)
 } catch (e) {
-  tl.warning(e)
+  tl.debug(e)
   tl.setResult(tl.TaskResult.SucceededWithIssues)
 }

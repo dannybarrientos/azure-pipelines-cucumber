@@ -14,7 +14,7 @@
   "version": {
     "Major": "1",
     "Minor": "0",
-    "Patch": "2"
+    "Patch": "3"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Publish Cucumber Report",
@@ -56,6 +56,14 @@
       "defaultValue": "true",
       "required": true,
       "helpMarkDown": "Report suites as scenarios"
+    },
+    {
+      "name": "generateJunit",
+      "type": "boolean",
+      "label": "Generate JUnit",
+      "defaultValue": "false",
+      "required": false,
+      "helpMarkDown": "Merge JSON files and export as XML JUnit report"
     },
     {
       "name": "metadata",
